@@ -1,0 +1,38 @@
+nav{
+    overflow: auto;
+    background-color: black;
+
+}
+
+ul{
+    margin: 0;
+    padding: 0px;
+}
+li{
+    float: left;
+    background-color: black;
+    list-style: none;
+    padding: 10px 0px;
+}
+
+li a{
+   padding: 10px 5px;
+    color:white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+li a:active,li a:visited{
+    color: white;
+}
+
+li a:hover{
+    color:black;
+    background-color: white;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }

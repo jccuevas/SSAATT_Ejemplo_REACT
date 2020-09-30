@@ -1,18 +1,25 @@
-import React, {Component} from 'react';import './App.css';
-import Hello from './Hello.js';
+import React, { Component } from 'react';
+import './App.css';
+import Title from './Title.js';
 import Navigator from './Navigator.js'
+import Section from './Section';
 
 class App extends Component {
-  render(){
-    return(
-    <div className="App">
-      <Navigator></Navigator>
-      <header className="App-header">
-        <Hello text="hola"/>
-              
-        
-      </header>
-    </div>);
+
+  render() {
+    return (
+      <div className="App">
+    
+        <header className="App-header">
+          <Title title="Práctica 4"/>
+
+
+        </header>
+        <Navigator/>
+        <main>
+          <Section title="Inicio"/>
+        </main>
+      </div>);
   }
 }
 
