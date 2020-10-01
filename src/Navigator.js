@@ -10,11 +10,11 @@ class Navigator extends Component {
 
     constructor(props) {
         super(props);
+        console.log("-1-");
         this.state = { active: 0 }
     }
 
     handleClick(order) {
-
         this.setState({ active: order });
     }
 
