@@ -7,6 +7,7 @@ class Section extends Component{
         return(
             <section>
                 <h2>{this.props.title}</h2>
+                <div>{this.props.children}</div>
             </section>
 
         );
