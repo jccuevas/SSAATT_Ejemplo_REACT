@@ -11,7 +11,8 @@ class App extends Component {
     this.state = {
       active: 0,
       logged: false,
-      error: false
+      error: false,
+      message: "Error"
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -36,7 +37,7 @@ class App extends Component {
       }
 
     }
-    fetch("http://192.168.1.154:8083/login", init)
+    fetch("http://192.168.1.167:8083/login", init)
       .then((response) => {
         if (response.ok) {
           //HTTP 200 Ok
@@ -51,18 +52,42 @@ class App extends Component {
           //Petición errónea
           console.log("Error");
           this.setState({
-            error: true
+            error: true,
+            message: "Error de autenticación"
           });
         }
-      })
+      }).catch((error) => {
+        console.log("Error");
+        this.setState({
+          error: true,
+          message: "Error de conexión"
+        });
+      });
 
 
   }
 
 
+  removeError() {
+    console.log("Lanzado");
+    this.setState({ error: false });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("Prev "+prevState.error+" Nuevo "+this.state.error);
+    if (prevState.error !== this.state.error && this.state.error===true) {
+      console.log("Temporizador");
+      this.errorTimeout = setTimeout(() => this.removeError(), 5000);
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.errorTimeout);
+  }
 
   render() {
-    const error = <Error message="Error de autenticación"/>;
+    const component_error = <Error message={this.state.message} show={true} />;
+
     return (
       <div className="App">
 
@@ -70,9 +95,9 @@ class App extends Component {
           <Title title="Práctica 4" />
         </header>
         <Navigator update={this.handleClick} logged={this.state.logged} />
-        {this.state.error ? error : ""}
+        {this.state.error ? component_error : ""}
         <Main active={this.state.active} login={this.login} />
-        
+
 
       </div>);
   }

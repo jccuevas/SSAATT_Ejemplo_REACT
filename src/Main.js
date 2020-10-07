@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import ExamList from './ExamList';
 import Login from './Login'
 import Section from './Section'
 
 
+
 class Main extends Component {
 
+    
 
     render() {
 
@@ -44,6 +47,7 @@ class Main extends Component {
                     <main>
                         <Section title="Listar exámenes">
                             Esta es la sección para listar exámenes
+                            <ExamList/>
                                 </Section>
                     </main>
                 );
