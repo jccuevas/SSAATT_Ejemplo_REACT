@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import URL_REMOTE from './network';
 
 
 class ExamList extends Component {
@@ -11,35 +12,31 @@ class ExamList extends Component {
     }
 
     componentDidMount() {
-        fetch("http://192.168.1.167:8083/exam")
+        fetch(URL_REMOTE+"/exam")
             .then((response) => {
                 if (response.ok) {
                     return response.json();
                 }
             })
             .then((datos) => {
-                for(let dato of datos){
-                console.log(dato.title);
+                for (let dato of datos) {
+                    console.log(dato.title);
                 }
                 this.setState({ list: datos });
             })
-
     }
 
     render() {
+        let list = [];
 
-       let list;
-
-        for(let datos of this.state.list){
-            console.log("-"+datos.title);
-        list+=<li>{datos.title}</li>;
+        for (let datos of this.state.list) {
+            console.log("-" + datos.title);
+            list.push(<li key={datos._id}><strong>{datos.title}</strong> {datos.repository}</li>);
         }
 
         return (
             <div>
-                
-                <ul>  {list}</ul>
-        
+                <ul>{list}</ul>
             </div>
         );
     }

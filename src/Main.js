@@ -7,7 +7,7 @@ import Section from './Section'
 
 class Main extends Component {
 
-    
+
 
     render() {
 
@@ -19,7 +19,7 @@ class Main extends Component {
                     <main>
                         <Section title="Inicio">
                             Esta es la sección de inicio
-                            <Login login={this.props.login}/>
+                            <Login login={this.props.login} />
                         </Section>
                     </main>
                 );
@@ -47,8 +47,8 @@ class Main extends Component {
                     <main>
                         <Section title="Listar exámenes">
                             Esta es la sección para listar exámenes
-                            <ExamList/>
-                                </Section>
+                            <ExamList />
+                        </Section>
                     </main>
                 );
                 break;

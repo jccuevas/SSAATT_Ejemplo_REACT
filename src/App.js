@@ -4,6 +4,7 @@ import Title from './Title.js';
 import Navigator from './Navigator.js'
 import Main from './Main';
 import Error from './Error'
+import URL_REMOTE from './network';
 
 class App extends Component {
   constructor(props) {
@@ -37,7 +38,8 @@ class App extends Component {
       }
 
     }
-    fetch("http://192.168.1.167:8083/login", init)
+    
+    fetch(URL_REMOTE+"/login", init)
       .then((response) => {
         if (response.ok) {
           //HTTP 200 Ok
