@@ -50,6 +50,7 @@ class Navigator extends Component {
 
             <nav>
                 {activeMenu}
+                {this.props.logged?<button>Desconectar</button>:<div></div>}
                 <div className="clearfix"></div>
             </nav>
 

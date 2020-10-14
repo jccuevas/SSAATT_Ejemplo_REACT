@@ -17,9 +17,8 @@ class Login extends Component {
                         type="password"
                         name="password"
                     />
-
                 </form>
-                <button onClick={() => this.props.login(document.forms.login.user.value,document.forms.login.password.value)}>Entar</button>
+                <button onClick={() => this.props.login(document.forms.login.user.value,document.forms.login.password.value)}>Entrar</button>
             </div>
         );
     }

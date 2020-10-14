@@ -4,6 +4,7 @@ import Title from './Title.js';
 import Navigator from './Navigator.js'
 import Main from './Main';
 import Error from './Error'
+import Dialog from './Dialog'
 import URL_REMOTE from './network';
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       active: 0,
+      logging: null,
       logged: false,
       error: false,
       message: "Error"
@@ -38,14 +40,16 @@ class App extends Component {
       }
 
     }
-    
-    fetch(URL_REMOTE+"/login", init)
+    this.setState({ logging: "Accediendo al servidor..." });
+
+    fetch(URL_REMOTE + "/login", init)
       .then((response) => {
         if (response.ok) {
           //HTTP 200 Ok
           console.log("Autenticado");
           this.setState({
             active: 2,
+            logging:null,
             logged: true,
             error: false
           });
@@ -54,6 +58,7 @@ class App extends Component {
           //Petición errónea
           console.log("Error");
           this.setState({
+            logging:null,
             error: true,
             message: "Error de autenticación"
           });
@@ -61,6 +66,7 @@ class App extends Component {
       }).catch((error) => {
         console.log("Error");
         this.setState({
+          logging:null,
           error: true,
           message: "Error de conexión"
         });
@@ -76,8 +82,8 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("Prev "+prevState.error+" Nuevo "+this.state.error);
-    if (prevState.error !== this.state.error && this.state.error===true) {
+    console.log("Prev " + prevState.error + " Nuevo " + this.state.error);
+    if (prevState.error !== this.state.error && this.state.error === true) {
       console.log("Temporizador");
       this.errorTimeout = setTimeout(() => this.removeError(), 5000);
     }
@@ -89,6 +95,7 @@ class App extends Component {
 
   render() {
     const component_error = <Error message={this.state.message} show={true} />;
+    const component_logging =<Error message={this.state.logging} show={true} />;
 
     return (
       <div className="App">
@@ -98,9 +105,8 @@ class App extends Component {
         </header>
         <Navigator update={this.handleClick} logged={this.state.logged} />
         {this.state.error ? component_error : ""}
+        {this.state.logging ? component_logging : ""}
         <Main active={this.state.active} login={this.login} />
-
-
       </div>);
   }
 }
