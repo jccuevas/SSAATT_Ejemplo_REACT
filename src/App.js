@@ -4,7 +4,6 @@ import Title from './Title.js';
 import Navigator from './Navigator.js'
 import Main from './Main';
 import Error from './Error'
-import Dialog from './Dialog'
 import URL_REMOTE from './network';
 
 class App extends Component {
@@ -49,7 +48,7 @@ class App extends Component {
           console.log("Autenticado");
           this.setState({
             active: 2,
-            logging:null,
+            logging: null,
             logged: true,
             error: false
           });
@@ -58,7 +57,7 @@ class App extends Component {
           //Petición errónea
           console.log("Error");
           this.setState({
-            logging:null,
+            logging: null,
             error: true,
             message: "Error de autenticación"
           });
@@ -66,7 +65,7 @@ class App extends Component {
       }).catch((error) => {
         console.log("Error");
         this.setState({
-          logging:null,
+          logging: null,
           error: true,
           message: "Error de conexión"
         });
@@ -95,11 +94,10 @@ class App extends Component {
 
   render() {
     const component_error = <Error message={this.state.message} show={true} />;
-    const component_logging =<Error message={this.state.logging} show={true} />;
+    const component_logging = <Error message={this.state.logging} show={true} />;
 
     return (
       <div className="App">
-
         <header className="App-header">
           <Title title="Práctica 4" />
         </header>
@@ -107,7 +105,17 @@ class App extends Component {
         {this.state.error ? component_error : ""}
         {this.state.logging ? component_logging : ""}
         <Main active={this.state.active} login={this.login} />
-      </div>);
+        <form method="get" action="http://labtelema.ujaen.es/form.php">
+          <label>
+            Name:
+    <input type="text" name="name" />
+          </label>
+          <input type="submit" value="Submit" />
+        </form>
+
+      </div>
+
+    );
   }
 }
 
