@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import './App.css';
-import Title from './Title.js';
-import Navigator from './Navigator.js'
-import Main from './Main';
-import Error from './Error'
-import URL_REMOTE from './network';
+import React, { Component } from "react";
+import "./App.css";
+import Title from "./Title.js";
+import Navigator from "./Navigator.js";
+import Main from "./Main";
+import Error from "./Error";
+import URL_REMOTE from "./network";
+import Footer from "./Footer";
 
 class App extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class App extends Component {
       logging: null,
       logged: false,
       error: false,
-      message: "Error"
+      message: "Error",
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -26,8 +27,8 @@ class App extends Component {
 
   login = (user, pass) => {
     let loginData = {
-      "user": user,
-      "password": pass
+      user: user,
+      password: pass,
     };
     let datos = JSON.stringify(loginData);
     const init = {
@@ -35,10 +36,9 @@ class App extends Component {
       mode: "cors",
       body: datos,
       headers: {
-        'Content-Type': 'application/json'
-      }
-
-    }
+        "Content-Type": "application/json",
+      },
+    };
     this.setState({ logging: "Accediendo al servidor..." });
 
     fetch(URL_REMOTE + "/login", init)
@@ -50,8 +50,9 @@ class App extends Component {
             active: 2,
             logging: null,
             logged: true,
-            error: false
+            error: false,
           });
+          console.log("Logeado correctamente active=" + this.state.active);
           return response.text();
         } else {
           //Petición errónea
@@ -59,21 +60,19 @@ class App extends Component {
           this.setState({
             logging: null,
             error: true,
-            message: "Error de autenticación"
+            message: "Error de autenticación",
           });
         }
-      }).catch((error) => {
+      })
+      .catch((error) => {
         console.log("Error");
         this.setState({
           logging: null,
           error: true,
-          message: "Error de conexión"
+          message: "Error de conexión",
         });
       });
-
-
-  }
-
+  };
 
   removeError() {
     console.log("Lanzado");
@@ -94,27 +93,25 @@ class App extends Component {
 
   render() {
     const component_error = <Error message={this.state.message} show={true} />;
-    const component_logging = <Error message={this.state.logging} show={true} />;
+    const component_logging = (
+      <Error message={this.state.logging} show={true} />
+    );
 
     return (
       <div className="App">
         <header className="App-header">
           <Title title="Práctica 4" />
         </header>
-        <Navigator update={this.handleClick} logged={this.state.logged} />
+        <Navigator
+          update={this.handleClick}
+          logged={this.state.logged}
+          active={this.state.active}
+        />
         {this.state.error ? component_error : ""}
         {this.state.logging ? component_logging : ""}
         <Main active={this.state.active} login={this.login} />
-        <form method="get" action="http://labtelema.ujaen.es/form.php">
-          <label>
-            Name:
-    <input type="text" name="name" />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-
+        <Footer />
       </div>
-
     );
   }
 }
